@@ -1,0 +1,173 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #071827;
+  color: white;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  background: #0f2c47;
+  border-bottom: 4px solid #2ecc71;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+header p {
+  margin: 8px 0 0 0;
+  color: #cfd8dc;
+}
+
+.hud {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px;
+}
+
+.hud-box {
+  background: #0f2c47;
+  border: 2px solid #2ecc71;
+  border-radius: 10px;
+  padding: 10px 18px;
+  width: 150px;
+  text-align: center;
+}
+
+.hud-box h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #2ecc71;
+}
+
+.hud-box p {
+  margin: 8px 0 0 0;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+}
+
+.progress-container {
+  width: 100%;
+  background: #1b3b54;
+  border-radius: 12px;
+  height: 18px;
+  margin-bottom: 25px;
+  overflow: hidden;
+  border: 2px solid #2ecc71;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #2ecc71, #27ae60);
+  transition: width 0.4s;
+}
+
+.scenario {
+  background: #0f2c47;
+  border-left: 8px solid #3498db;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+
+.scenario h2 {
+  margin-top: 0;
+  color: #3498db;
+}
+
+.question-box {
+  background: white;
+  color: #111;
+  padding: 22px;
+  border-radius: 12px;
+  border: 5px solid #2ecc71;
+}
+
+.question-box h3 {
+  margin-top: 0;
+  color: #0f2c47;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.choice-btn {
+  padding: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #ecf0f1;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.choice-btn:hover {
+  background: #d0d7de;
+}
+
+.choice-btn.correct {
+  background: #2ecc71;
+  color: white;
+}
+
+.choice-btn.wrong {
+  background: #e74c3c;
+  color: white;
+}
+
+.feedback {
+  margin-top: 18px;
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+
+button {
+  margin-top: 18px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #3498db;
+  color: white;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+button.danger {
+  background: #e74c3c;
+}
+
+button.danger:hover {
+  background: #c0392b;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .hud-box {
+    width: 130px;
+  }
+}

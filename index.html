@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GED Science Survival Lab</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>🧪 GED Science Survival Lab</h1>
+  <p>Answer GED-style questions to survive science scenarios!</p>
+</header>
+
+<section class="hud">
+  <div class="hud-box">
+    <h3>⭐ Score</h3>
+    <p id="score">0</p>
+  </div>
+
+  <div class="hud-box">
+    <h3>❤️ Health</h3>
+    <p id="health">3</p>
+  </div>
+
+  <div class="hud-box">
+    <h3>🔥 Streak</h3>
+    <p id="streak">0</p>
+  </div>
+
+  <div class="hud-box">
+    <h3>🏆 Level</h3>
+    <p id="level">1</p>
+  </div>
+</section>
+
+<main>
+  <div class="progress-container">
+    <div id="progressBar" class="progress-bar"></div>
+  </div>
+
+  <section class="scenario">
+    <h2 id="scenarioTitle">Loading Scenario...</h2>
+    <p id="scenarioText"></p>
+  </section>
+
+  <section class="question-box">
+    <h3 id="questionTitle">Question</h3>
+    <p id="questionText"></p>
+
+    <div id="choices" class="choices"></div>
+
+    <p id="feedback" class="feedback"></p>
+
+    <button id="nextBtn" class="hidden">Next Challenge</button>
+    <button id="restartBtn" class="hidden danger">Restart Game</button>
+  </section>
+</main>
+
+<footer>
+  <p>GED Science Practice Game | Focus: Evidence, Data, Experiments, Earth, Life, Physical Science</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

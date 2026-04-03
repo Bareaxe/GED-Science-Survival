@@ -1,173 +1,311 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #071827;
-  color: white;
-}
+document.addEventListener("DOMContentLoaded", () => {
 
-header {
-  text-align: center;
-  padding: 20px;
-  background: #0f2c47;
-  border-bottom: 4px solid #2ecc71;
-}
+  const scenarios = [
+    {
+      title: "🌡️ Lab Emergency: Melting Candy",
+      text: "A student tests how temperature affects the time it takes candy to melt. The candy melts faster at higher temperatures.",
+      question: "Which is the independent variable in this experiment?",
+      choices: [
+        "Time it takes the candy to melt",
+        "Temperature of the environment",
+        "Type of candy being tested",
+        "The size of the candy pieces"
+      ],
+      correct: 1,
+      explanation: "The independent variable is what is changed. The student changes the temperature."
+    },
+    {
+      title: "📊 Data Alert: Plant Growth",
+      text: "A plant grows from 10 cm to 22 cm in 4 weeks.",
+      question: "What is the average growth per week?",
+      choices: [
+        "2 cm per week",
+        "3 cm per week",
+        "6 cm per week",
+        "12 cm per week"
+      ],
+      correct: 1,
+      explanation: "Growth = 22 - 10 = 12 cm total. Divide by 4 weeks: 12 ÷ 4 = 3 cm/week."
+    },
+    {
+      title: "🧬 Cell Mystery",
+      text: "A cell must control what enters and leaves in order to survive.",
+      question: "Which cell structure controls what enters and leaves the cell?",
+      choices: [
+        "Nucleus",
+        "Cell membrane",
+        "Ribosome",
+        "Mitochondria"
+      ],
+      correct: 1,
+      explanation: "The cell membrane regulates what enters and leaves the cell."
+    },
+    {
+      title: "⚡ Energy Challenge",
+      text: "A roller coaster reaches the top of a hill, then speeds downward.",
+      question: "What energy transformation is happening as it moves downhill?",
+      choices: [
+        "Chemical energy to thermal energy",
+        "Kinetic energy to potential energy",
+        "Potential energy to kinetic energy",
+        "Thermal energy to chemical energy"
+      ],
+      correct: 2,
+      explanation: "At the top it has high potential energy. As it falls, potential energy becomes kinetic energy."
+    },
+    {
+      title: "🌍 Earth Science Storm Warning",
+      text: "Warm ocean water can add energy to storms, making hurricanes stronger.",
+      question: "Which statement best explains why hurricanes strengthen over warm water?",
+      choices: [
+        "Warm water decreases evaporation",
+        "Warm water increases evaporation and energy in the atmosphere",
+        "Warm water reduces wind speed",
+        "Warm water lowers air pressure everywhere equally"
+      ],
+      correct: 1,
+      explanation: "Warm water increases evaporation, adding heat energy and moisture that fuels storms."
+    },
+    {
+      title: "🧪 Experimental Design Failure",
+      text: "A student tests fertilizer effects but uses different amounts of water for each plant.",
+      question: "What is the biggest problem with this experiment?",
+      choices: [
+        "There is no dependent variable",
+        "There are multiple variables changing at once",
+        "Fertilizer is not measurable",
+        "Plants cannot be used in experiments"
+      ],
+      correct: 1,
+      explanation: "Changing fertilizer AND water means results cannot be linked to one cause."
+    },
+    {
+      title: "📈 Correlation Trap",
+      text: "A study shows that as sunscreen sales increase, sunburn cases also increase.",
+      question: "What is the most logical explanation?",
+      choices: [
+        "Sunscreen causes sunburn",
+        "Sunburn causes people to buy sunscreen",
+        "Hot sunny weather increases both sunscreen use and sunburn",
+        "Sunscreen prevents all sunburn completely"
+      ],
+      correct: 2,
+      explanation: "A third factor (sunny weather) increases both. Correlation does not prove causation."
+    },
+    {
+      title: "🪨 Tectonic Shift",
+      text: "Two tectonic plates grind past each other along a fault line.",
+      question: "What natural event is most likely to occur?",
+      choices: [
+        "Tornado",
+        "Earthquake",
+        "Tsunami always occurs",
+        "Drought"
+      ],
+      correct: 1,
+      explanation: "Plate movement along faults releases energy as earthquakes."
+    },
+    {
+      title: "🌡️ Heat Capacity Challenge",
+      text: "Land heats up faster than water during the day and cools down faster at night.",
+      question: "Which statement best explains this?",
+      choices: [
+        "Water has a lower specific heat than land",
+        "Water has a higher specific heat than land",
+        "Land is always colder than water",
+        "Water blocks sunlight completely"
+      ],
+      correct: 1,
+      explanation: "Water has higher specific heat, meaning it changes temperature more slowly."
+    },
+    {
+      title: "🧮 Density Checkpoint",
+      text: "A metal block has a mass of 200 g and a volume of 50 cm³.",
+      question: "What is its density?",
+      choices: [
+        "4 g/cm³",
+        "0.25 g/cm³",
+        "150 g/cm³",
+        "250 g/cm³"
+      ],
+      correct: 0,
+      explanation: "Density = mass ÷ volume = 200 ÷ 50 = 4 g/cm³."
+    }
+  ];
 
-header h1 {
-  margin: 0;
-  font-size: 2.2rem;
-}
+  // GAME STATE
+  let score = 0;
+  let health = 3;
+  let streak = 0;
+  let level = 1;
+  let progress = 0;
 
-header p {
-  margin: 8px 0 0 0;
-  color: #cfd8dc;
-}
+  let currentScenario = null;
+  let usedIndexes = new Set();
 
-.hud {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px;
-  padding: 15px;
-}
+  // ELEMENTS
+  const scoreEl = document.getElementById("score");
+  const healthEl = document.getElementById("health");
+  const streakEl = document.getElementById("streak");
+  const levelEl = document.getElementById("level");
+  const progressBar = document.getElementById("progressBar");
 
-.hud-box {
-  background: #0f2c47;
-  border: 2px solid #2ecc71;
-  border-radius: 10px;
-  padding: 10px 18px;
-  width: 150px;
-  text-align: center;
-}
+  const scenarioTitle = document.getElementById("scenarioTitle");
+  const scenarioText = document.getElementById("scenarioText");
+  const questionText = document.getElementById("questionText");
+  const choicesDiv = document.getElementById("choices");
 
-.hud-box h3 {
-  margin: 0;
-  font-size: 1rem;
-  color: #2ecc71;
-}
+  const feedbackEl = document.getElementById("feedback");
+  const nextBtn = document.getElementById("nextBtn");
+  const restartBtn = document.getElementById("restartBtn");
 
-.hud-box p {
-  margin: 8px 0 0 0;
-  font-size: 1.6rem;
-  font-weight: bold;
-}
-
-main {
-  max-width: 1000px;
-  margin: auto;
-  padding: 20px;
-}
-
-.progress-container {
-  width: 100%;
-  background: #1b3b54;
-  border-radius: 12px;
-  height: 18px;
-  margin-bottom: 25px;
-  overflow: hidden;
-  border: 2px solid #2ecc71;
-}
-
-.progress-bar {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #2ecc71, #27ae60);
-  transition: width 0.4s;
-}
-
-.scenario {
-  background: #0f2c47;
-  border-left: 8px solid #3498db;
-  padding: 18px;
-  border-radius: 10px;
-  margin-bottom: 25px;
-}
-
-.scenario h2 {
-  margin-top: 0;
-  color: #3498db;
-}
-
-.question-box {
-  background: white;
-  color: #111;
-  padding: 22px;
-  border-radius: 12px;
-  border: 5px solid #2ecc71;
-}
-
-.question-box h3 {
-  margin-top: 0;
-  color: #0f2c47;
-}
-
-.choices {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-top: 15px;
-}
-
-.choice-btn {
-  padding: 14px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  background: #ecf0f1;
-  font-size: 1rem;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-.choice-btn:hover {
-  background: #d0d7de;
-}
-
-.choice-btn.correct {
-  background: #2ecc71;
-  color: white;
-}
-
-.choice-btn.wrong {
-  background: #e74c3c;
-  color: white;
-}
-
-.feedback {
-  margin-top: 18px;
-  font-size: 1.05rem;
-  font-weight: bold;
-}
-
-button {
-  margin-top: 18px;
-  padding: 12px 16px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  background: #3498db;
-  color: white;
-  font-weight: bold;
-}
-
-button:hover {
-  background: #2980b9;
-}
-
-button.danger {
-  background: #e74c3c;
-}
-
-button.danger:hover {
-  background: #c0392b;
-}
-
-.hidden {
-  display: none;
-}
-
-@media (max-width: 700px) {
-  .hud-box {
-    width: 130px;
+  // SAFETY CHECK (prevents infinite loading bugs)
+  if (!scoreEl || !scenarioTitle || !choicesDiv) {
+    console.error("Missing required HTML elements. Check index.html IDs.");
+    return;
   }
-}
+
+  function updateHUD() {
+    scoreEl.textContent = score;
+    healthEl.textContent = health;
+    streakEl.textContent = streak;
+    levelEl.textContent = level;
+  }
+
+  function updateProgress() {
+    const percent = Math.floor((progress / scenarios.length) * 100);
+    progressBar.style.width = percent + "%";
+  }
+
+  function getRandomScenario() {
+    if (usedIndexes.size === scenarios.length) return null;
+
+    let index;
+    do {
+      index = Math.floor(Math.random() * scenarios.length);
+    } while (usedIndexes.has(index));
+
+    usedIndexes.add(index);
+    return scenarios[index];
+  }
+
+  function endGame(win) {
+    choicesDiv.innerHTML = "";
+    nextBtn.classList.add("hidden");
+
+    if (win) {
+      feedbackEl.textContent = "🏆 You survived the Science Lab! You’re GED-ready!";
+      feedbackEl.style.color = "#27ae60";
+    } else {
+      feedbackEl.textContent = "💥 Lab Failure! You ran out of health. Try again!";
+      feedbackEl.style.color = "#e74c3c";
+    }
+
+    restartBtn.classList.remove("hidden");
+  }
+
+  function renderChoices() {
+    choicesDiv.innerHTML = "";
+
+    currentScenario.choices.forEach((choice, idx) => {
+      const btn = document.createElement("button");
+      btn.className = "choice-btn";
+      btn.textContent = choice;
+
+      btn.addEventListener("click", () => handleAnswer(idx, btn));
+      choicesDiv.appendChild(btn);
+    });
+  }
+
+  function loadScenario() {
+    currentScenario = getRandomScenario();
+
+    if (!currentScenario) {
+      endGame(true);
+      return;
+    }
+
+    scenarioTitle.textContent = currentScenario.title;
+    scenarioText.textContent = currentScenario.text;
+    questionText.textContent = currentScenario.question;
+
+    feedbackEl.textContent = "";
+    feedbackEl.style.color = "#111";
+
+    nextBtn.classList.add("hidden");
+    restartBtn.classList.add("hidden");
+
+    renderChoices();
+    updateProgress();
+  }
+
+  function handleAnswer(selected, btnClicked) {
+    const buttons = document.querySelectorAll(".choice-btn");
+    buttons.forEach(b => b.disabled = true);
+
+    if (selected === currentScenario.correct) {
+      btnClicked.classList.add("correct");
+
+      score += 100;
+      streak += 1;
+
+      if (streak % 3 === 0) {
+        score += 50;
+        feedbackEl.textContent = `✅ Correct! Bonus +50 for streak! ${currentScenario.explanation}`;
+      } else {
+        feedbackEl.textContent = `✅ Correct! ${currentScenario.explanation}`;
+      }
+
+      feedbackEl.style.color = "#27ae60";
+    } else {
+      btnClicked.classList.add("wrong");
+      buttons[currentScenario.correct].classList.add("correct");
+
+      health -= 1;
+      streak = 0;
+
+      feedbackEl.textContent = `❌ Incorrect. ${currentScenario.explanation}`;
+      feedbackEl.style.color = "#e74c3c";
+    }
+
+    progress += 1;
+
+    if (progress % 3 === 0) {
+      level += 1;
+    }
+
+    updateHUD();
+    updateProgress();
+
+    if (health <= 0) {
+      endGame(false);
+    } else {
+      nextBtn.classList.remove("hidden");
+    }
+  }
+
+  // BUTTON EVENTS
+  nextBtn.addEventListener("click", () => {
+    loadScenario();
+  });
+
+  restartBtn.addEventListener("click", () => {
+    score = 0;
+    health = 3;
+    streak = 0;
+    level = 1;
+    progress = 0;
+    usedIndexes.clear();
+
+    restartBtn.classList.add("hidden");
+    updateHUD();
+    updateProgress();
+    loadScenario();
+  });
+
+  // START GAME
+  updateHUD();
+  updateProgress();
+  loadScenario();
+
+});

@@ -110,12 +110,13 @@ main {
 .choice-btn {
   padding: 14px;
   border-radius: 8px;
-  border: none;
+  border: 2px solid #0f2c47;
   cursor: pointer;
-  background: #ecf0f1;
+  background: #d6ecff;
   font-size: 1rem;
   font-weight: bold;
   transition: 0.2s;
+  color: #0b1b2b;
 }
 
 .choice-btn:hover {
